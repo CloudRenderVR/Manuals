@@ -64,4 +64,14 @@ The server code lives [here](https://github.com/CloudRenderVR/Server). We just p
 
 # Pose capture
 
+Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information
+on calibrating the camera is located in the PoseExtracton_DepthCamera repo README. Currently there is an error with data shape
+input for the opencv model which does the work of isolating the pose. 
+
+# Pose reprojection
+
+Pose reprojection takes the BODY25 skeleton and reprojects it to a H99 skeleton. The file responsible for this transition is located in the human motion prediction distro, specifically under the PythonVersionSafety branch. This is required because the model only accepts H99 poses. 
+
 # Pose prediction
+
+Pose Prediction is done statistically using a seq2seq model (takes a sequence and outputs a sequence). This model has been edited to focus on the eye movement, which isn't specifically recorded in the skeleton pose. To ensure everything works make sure to use the PythonVersionSafety branch, which has been edited to ensure that running it with python is possible (master includes some python3 commands). src/continuous prediction is our file which isolates head movement and iterates through the dataset. 
