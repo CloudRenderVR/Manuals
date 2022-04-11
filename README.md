@@ -1,8 +1,15 @@
 # Contents
-- [Client](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#client)
-- [Server](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#server)
-- [Pose capture](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#pose-capture)
-- [Pose prediction](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#pose-prediction)
+- [Overview](https://github.com/CloudRenderVR/Manuals#the-big-picture)
+- [Client](https://github.com/CloudRenderVR/Manuals#client)
+- [Server](https://github.com/CloudRenderVR/Manuals#server)
+- [Pose capture](https://github.com/CloudRenderVR/Manuals#pose-capture)
+- [Pose prediction](https://github.com/CloudRenderVR/Manuals#pose-prediction)
+
+# The big picture
+
+![image](https://user-images.githubusercontent.com/18013792/162675063-855730b8-779e-49d6-8c49-e007fd31a572.png)
+
+Note that the pose prediction code is our least-developed area, and for now we're hoping to just bypass it (sending pose data from the capture directly to the client).
 
 # Client
 
@@ -62,11 +69,11 @@ Which can be ran from the client root directory. Running this creates a `.qdrep`
 
 The server code lives [here](https://github.com/CloudRenderVR/Server). We just provide our custom `PixelStreaming` module, instead of a full Unreal Engine source build. To build the server, see the readme in the server repo. Note I believe we used unreal engine [4.27](https://github.com/EpicGames/UnrealEngine/tree/4.27).
 
+To get the server running, just create a new Unreal Engine project (we used the fps template), and make sure to enable the `Pixel Streaming` plugin in the project. After that, you should be able to simply package your project and run it, which will automatically start up our streaming system, provided you gave the proper commandline arguments (see server repo readme for details). The server provides various logs to the console for debugging connections and streaming.
+
 # Pose capture
 
-Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information
-on calibrating the camera is located in the PoseExtracton_DepthCamera repo README. Currently there is an error with data shape
-input for the opencv model which does the work of isolating the pose. 
+Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information on calibrating the camera is located in the [PoseExtracton_DepthCamera repo README](https://github.com/CloudRenderVR/PoseExtraction_DepthCamera/blob/master/README.md). Currently there is an error with data shape input for the opencv model which does the work of isolating the pose. 
 
 # Pose reprojection
 
