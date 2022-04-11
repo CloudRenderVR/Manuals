@@ -9,6 +9,7 @@
 
 ![image](https://user-images.githubusercontent.com/18013792/162675063-855730b8-779e-49d6-8c49-e007fd31a572.png)
 
+Note that the pose prediction code is our least-developed area, and for now we're hoping to just bypass it (sending pose data from the capture directly to the client).
 
 # Client
 
