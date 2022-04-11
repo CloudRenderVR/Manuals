@@ -1,8 +1,14 @@
 # Contents
-- [Client](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#client)
-- [Server](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#server)
-- [Pose capture](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#pose-capture)
-- [Pose prediction](https://github.com/CloudRenderVR/Manuals/edit/main/README.md#pose-prediction)
+- [Overview](https://github.com/CloudRenderVR/Manuals#the-big-picture)
+- [Client](https://github.com/CloudRenderVR/Manuals#client)
+- [Server](https://github.com/CloudRenderVR/Manuals#server)
+- [Pose capture](https://github.com/CloudRenderVR/Manuals#pose-capture)
+- [Pose prediction](https://github.com/CloudRenderVR/Manuals#pose-prediction)
+
+# The big picture
+
+![image](https://user-images.githubusercontent.com/18013792/162675063-855730b8-779e-49d6-8c49-e007fd31a572.png)
+
 
 # Client
 
