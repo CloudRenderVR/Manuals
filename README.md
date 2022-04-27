@@ -75,6 +75,11 @@ To get the server running, just create a new Unreal Engine project (we used the 
 
 Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information on calibrating the camera is located in the [PoseExtracton_DepthCamera repo README](https://github.com/CloudRenderVR/PoseExtraction_DepthCamera/blob/master/README.md). Currently there is an error with data shape input for the opencv model which does the work of isolating the pose. 
 
+*Important setup notes:*
+
+1. For some reason, running `main.py` from powershell did not function for me initially, throwing memory shape errors in OpenCV internals, to fix this, I ran the code from VSCode (made a launch.json and ran as a python file).
+2. To get the model data, go to the root directory of the pose repo, and run `git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose`. Then, navigate to `openpose/models` and run `getModels.bat` or `getModels.sh`.
+
 # Pose reprojection
 
 Pose reprojection takes the BODY25 skeleton and reprojects it to a H99 skeleton. The file responsible for this transition is located in the human motion prediction distro, specifically under the PythonVersionSafety branch. This is required because the model only accepts H99 poses. 
