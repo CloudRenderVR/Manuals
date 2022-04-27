@@ -73,12 +73,19 @@ To get the server running, just create a new Unreal Engine project (we used the 
 
 # Pose capture
 
-Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information on calibrating the camera is located in the [PoseExtracton_DepthCamera repo README](https://github.com/CloudRenderVR/PoseExtraction_DepthCamera/blob/master/README.md). Currently there is an error with data shape input for the opencv model which does the work of isolating the pose. 
+Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information on calibrating the camera is located in the [PoseExtracton_DepthCamera repo README](https://github.com/CloudRenderVR/PoseExtraction_DepthCamera/blob/master/README.md).
 
 *Important setup notes:*
 
 1. For some reason, running `main.py` from powershell did not function for me initially, throwing memory shape errors in OpenCV internals, to fix this, I ran the code from VSCode (made a launch.json and ran as a python file).
 2. To get the model data, go to the root directory of the pose repo, and run `git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose`. Then, navigate to `openpose/models` and run `getModels.bat` or `getModels.sh`.
+3. In addition to a cuda-enabled OpenCV build (tested 4.5.5), you'll need zlib. Linux is a standard build via cmake, but on Windows I had to rename the dll. Steps for getting zlib on windows:
+    1. Download `https://zlib.net/zlib1212.zip`, or get a more recent version if available from `zlib.net`.
+    2. Open cmake-gui, pointing to the folder that contains the CMakeLists.txt file (the root directory of zlib). Make a folder called "build" in this folder and set that build directory to be the build output directory in cmake-gui.
+    3. Configure and Generate.
+    4. Open the solution files and either build all or just build `zlib` and `install`.
+    5. Copy `zlib.dll` from the bin directory either into your system path or just right next to `main.py`.
+    6. Rename `zlib.dll` to `zlibwapi.dll`.
 
 # Pose reprojection
 
