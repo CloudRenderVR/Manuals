@@ -63,7 +63,7 @@ For Nsight profiling, the following is a convience script to generate an Nsight 
 ```
 nsys profile --accelerator-trace=nvmedia --trace=cuda,opengl,nvtx,nvmedia --process-scope=system-wide ./build/bin/client
 ```
-Which can be ran from the client root directory. Running this creates a `.qdrep` file, which you can then move over to the Pikespeak machine (or some other compute with Nsight Systems) via something like WinSCP. Opening this files on a Windows machine allows you to inspect the trace data.
+Which can be ran from the client root directory. Running this creates either a `.qdrep` or `.nsys-rep` file, which you can then move over to the Pikespeak machine (or some other compute with Nsight Systems) via something like WinSCP. Opening this files on a Windows machine allows you to inspect the trace data. NOTE: there is a bug with Nsight Systems version 2022.3.3 where profiling the VIC accelerator will crash nsys when generating the report. To fix this, run profiling under `sudo` permissions.
 
 # Server
 
