@@ -55,6 +55,9 @@ If you aren't compiling on ARM64, or want to build yourself, just run: `$ ./prem
 
 Build products are placed in the `build` folder when running the standard `build.sh` script. To run from your home directory, run the following command: `$ ./build/bin/client`. The client will then begin attempting to connect to the server, whose IP is hardcoded at [this line](https://github.com/CloudRenderVR/Client/blob/b198f1fc3c5cc28f036843bcec5d9fce12d696bb/CloudRenderVR/src/Main.cpp#L35).
 
+Note: dynamic linking requirements are as follows for hardware acceleration (opencv-cuda and ffmpeg-nvdec)
+ > LD_LIBRARY_PATH=/usr/local/lib:/usr/lib/ffmpegNvidia2
+
 ## Profiling
 
 We used two main forms of profiling for this project, Tracy and Nsight Systems. For Tracy profiling, make sure `Profiling = true` in the build script. After that, just run the client from the commandline and attach the server application. You can either compile the server yourself from the [tracy source code](https://github.com/wolfpld/tracy), just make sure the protocol versions line up. There is an existing compiled executable with the correct protocol on the Pikespeak machine, named `TracyServer.exe`, a shortcut to it is on the desktop.
