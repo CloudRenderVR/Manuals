@@ -66,6 +66,11 @@ The server code lives [here](https://github.com/CloudRenderVR/Server). We just p
 
 To get the server running, just create a new Unreal Engine project (we used the fps template), and make sure to enable the `Pixel Streaming` plugin in the project. After that, you should be able to simply package your project and run it, which will automatically start up our streaming system, provided you gave the proper commandline arguments (see server repo readme for details). The server provides various logs to the console for debugging connections and streaming.
 
+The pre-built basic project (fps template) executable is located here on the server:
+![image](https://user-images.githubusercontent.com/18013792/233865583-5df4cb6e-30dd-4be2-9b71-e4f225eac118.png)
+
+There are a collection of various shortcuts to the exe, all with varying commandline arguments. The highlighted one has fairly default settings.
+
 # Pose capture
 
 Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information on calibrating the camera is located in the [PoseExtracton_DepthCamera repo README](https://github.com/CloudRenderVR/PoseExtraction_DepthCamera/blob/master/README.md).
