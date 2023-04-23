@@ -33,15 +33,7 @@ First off, some necessary dependencies: `$ apt-get install ffmpeg libavcodec-dev
 
 ## Configuring
 
-There are various ways to change the behavior of the client, including the static scheduling choices. The primary way to alter the config is to edit `premake5.lua`. In this file, you'll see a `BUILD CONFIGURATION` section at the top, followed by a series of parameters that can be tweaked.
-```lua
-UseVPI = true  -- Set to false if VPI isn't available on the target platform. Falls back to OpenCV.
-UseBuiltinDecoding = false  -- Set to true if we don't want a custom ffmpeg build.
-UseHwAccelDecoding = false  -- For HW accel, must have UseBuiltinDecoding set to true. Will attempt to use cuda.
-Debugging = false  -- Set to true if we want to debug the executable, this will make it perform considerably slower.
-Profiling = true  -- Set to true if we want Tracy to compile and generate profiling zones.
-```
-These allow you to change between OpenCV vs VPI, and which ffmpeg decoding type to use, but how do we change if we want VPI on the cpu or VPI on the HW? To do this, all you have to do is navigate to [this line](https://github.com/CloudRenderVR/Client/blob/b198f1fc3c5cc28f036843bcec5d9fce12d696bb/CloudRenderVR/src/ReprojectVPI.cpp#L62) and change the `backend` variable to whatever VPI backend you want. Options are as follows: `VPI_BACKEND_CPU`, `VPI_BACKEND_VIC`, `VPI_BACKEND_CUDA`.
+There are various ways to change the behavior of the client, including the static scheduling choices. The primary way to alter the config is to edit `premake5.lua`. In this file, you'll see a `BUILD CONFIGURATION` section at the top, followed by a series of parameters that can be tweaked. All options are sufficiently commented in that file, so visit that for details. Note that you may need to run a clean build when tweaking these options, calling `make` by itself will not read changes from the build configuration. E.g: `$ rm -rf build && ./build.sh`
 
 ## Building
 
