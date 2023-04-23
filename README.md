@@ -71,6 +71,8 @@ The pre-built basic project (fps template) executable is located here on the ser
 
 There are a collection of various shortcuts to the exe, all with varying commandline arguments. The highlighted one has fairly default settings.
 
+**NOTE:** the client hardware decoder for some reason cannot recover from an interrupted H.264 stream. This means that if you connect the client to server and render some frames, then kill the client and restart only the client, then the client will fail to decode all server frames (if hardware accelerated). The software decoder can recover properly once a sync frame is sent over. To fix this, just restart the server executable every time you restart the client.
+
 # Pose capture
 
 Pose capture uses the intel realsense depth camera to isolate a BODY25 skeleton of the human in frame. Detailed information on calibrating the camera is located in the [PoseExtracton_DepthCamera repo README](https://github.com/CloudRenderVR/PoseExtraction_DepthCamera/blob/master/README.md).
