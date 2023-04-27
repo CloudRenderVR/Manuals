@@ -85,6 +85,10 @@ Scroll by holding right click, mouse wheel to zoom. Left click on zones for info
 
 Note that launching the client executable with sudo permissions enables high detail profiling, where CPU samples are taken, all system threads recorded, and much more. However, the pikespeak machine has been getting booted off the LAN when doing this possibly due to ITS bandwidth limits? (High detail mode requires much more bandwidth).
 
+### Networking bandwidth
+
+When compiling with `Profiling = true`, a bandwidth report is generated after running. The file is called `netbandwidth.data`, and can be analyzed by running `python3 bandwidth.py`, which reports mean byte usage per frame.
+
 # Server
 
 The server code lives [here](https://github.com/CloudRenderVR/Server). We just provide our custom `PixelStreaming` module, instead of a full Unreal Engine source build. To build the server, see the readme in the server repo. Note I believe we used unreal engine [4.27](https://github.com/EpicGames/UnrealEngine/tree/4.27).
