@@ -47,6 +47,8 @@ If you aren't compiling on ARM64, or want to build yourself, just run: `$ ./prem
 
 Build products are placed in the `build` folder when running the standard `build.sh` script. To run from your home directory, run the following command: `$ ./build/bin/client`. The client will then begin attempting to connect to the server, whose IP is hardcoded at [this line](https://github.com/CloudRenderVR/Client/blob/b198f1fc3c5cc28f036843bcec5d9fce12d696bb/CloudRenderVR/src/Main.cpp#L35).
 
+Note: to kill the client, use Ctrl+C.
+
 Note: dynamic linking requirements are as follows for hardware acceleration (opencv-cuda and ffmpeg-nvdec)
  > LD_LIBRARY_PATH=/usr/local/lib:/usr/lib/ffmpegNvidia2
 
@@ -60,6 +62,29 @@ nsys profile --accelerator-trace=nvmedia --trace=cuda,opengl,nvtx,nvmedia --proc
 ```
 Which can be ran from the client root directory. Running this creates either a `.qdrep` or `.nsys-rep` file, which you can then move over to the Pikespeak machine (or some other compute with Nsight Systems) via something like WinSCP. Opening this files on a Windows machine allows you to inspect the trace data. NOTE: there is a bug with Nsight Systems version 2022.3.3 where profiling the VIC accelerator will crash nsys when generating the report. To fix this, run profiling under `sudo` permissions.
 
+### Which to use?
+
+If you want to profile the actual time spend executing on the hardware (any non-cpu accelerator), use Nsight Systems. For any CPU profiling or latency measurements, Tracy is the preferred method.
+
+### Tracy Guide
+
+1. Launch the executable
+
+![image](https://user-images.githubusercontent.com/18013792/234989097-b8200c8d-54d2-4bf5-be70-40dd3c981f30.png)
+
+2. Connect to the target
+
+![image](https://user-images.githubusercontent.com/18013792/234991081-3de357c6-a913-4b2a-8220-da65d86c64d7.png)
+
+3. View the profiling data
+
+![ProfilingDemo](https://user-images.githubusercontent.com/18013792/234992354-210f3e22-4786-4951-ba2b-25a467547c62.png)
+For detailed usage, refer to the Tracy user [manual](https://github.com/wolfpld/tracy/releases/latest/download/tracy.pdf).
+Basic guide:
+Scroll by holding right click, mouse wheel to zoom. Left click on zones for information, then click Statistics for detailed info. Time range limits can be set using the Limits button to occlude outliers. Zones are specified in the code using `ZoneScopedN("zone name here");`, refer to the codebase for examples.
+
+Note that launching the client executable with sudo permissions enables high detail profiling, where CPU samples are taken, all system threads recorded, and much more. However, the pikespeak machine has been getting booted off the LAN when doing this possibly due to ITS bandwidth limits? (High detail mode requires much more bandwidth).
+
 # Server
 
 The server code lives [here](https://github.com/CloudRenderVR/Server). We just provide our custom `PixelStreaming` module, instead of a full Unreal Engine source build. To build the server, see the readme in the server repo. Note I believe we used unreal engine [4.27](https://github.com/EpicGames/UnrealEngine/tree/4.27).
@@ -72,6 +97,22 @@ The pre-built basic project (fps template) executable is located here on the ser
 There are a collection of various shortcuts to the exe, all with varying commandline arguments. The highlighted one has fairly default settings.
 
 **NOTE:** the client hardware decoder for some reason cannot recover from an interrupted H.264 stream. This means that if you connect the client to server and render some frames, then kill the client and restart only the client, then the client will fail to decode all server frames (if hardware accelerated). The software decoder can recover properly once a sync frame is sent over. To fix this, just restart the server executable every time you restart the client.
+
+## Profiling
+
+To measure time spent on the server, there's two figures to look at: rendering time and encoding time.
+
+To measure rendering time, run without `-RenderOffScreen` so local display is enabled. Then, hit the tilde key to open the console and type `stat fps`. This will show the rendering time in the top right corner.
+
+![image](https://user-images.githubusercontent.com/18013792/234996405-08a7f9cb-c0e5-43a9-b682-badfb7a6e866.png)
+
+![image](https://user-images.githubusercontent.com/18013792/234996454-d7ebe51a-7be3-4562-813f-92e8fe97f462.png)
+
+For measuring encoding time, refer to the console that opens when running. When the client is connected, you should see entries in the console similar to the following:
+
+ > [2023.04.27-21.47.12:185][ 81]PixelStreaming: Encode factory latency: 23.914 ms
+
+These messages show the CPU latency spent encoding a single frame.
 
 # Pose capture
 
