@@ -87,7 +87,7 @@ Note that launching the client executable with sudo permissions enables high det
 
 ### Networking bandwidth
 
-When compiling with `Profiling = true`, a bandwidth report is generated after running. The file is called `netbandwidth.data`, and can be analyzed by running `python3 bandwidth.py`, which reports mean byte usage per frame.
+When compiling with `Profiling = true`, a bandwidth report is generated after running. The file is called `netbandwidth.data`, and can be analyzed by running `python3 bandwidth.py`, which reports mean byte usage per frame. Note that you might want to run the server with maxfps=1 if you want to measure the bytes per frame, since doing this will ensure that at most one frame is pulled from the socket and decoded every time the client updates, and frames are not batched.
 
 # Server
 
