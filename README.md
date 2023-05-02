@@ -140,4 +140,5 @@ Pose reprojection takes the BODY25 skeleton and reprojects it to a H99 skeleton.
 
 # Pose prediction
 
-Pose Prediction is done statistically using a seq2seq model (takes a sequence and outputs a sequence). This model has been edited to focus on the eye movement, which isn't specifically recorded in the skeleton pose. To ensure everything works make sure to use the PythonVersionSafety branch, which has been edited to ensure that running it with python is possible (master includes some python3 commands). src/continuous prediction is our file which isolates head movement and iterates through the dataset. As well, if predicting on the Xavier device, ensure to use the command: 'source h-motion/bin/activate' (while in the gitStuff directory) to use the proper python virtuelenv. 
+Pose Prediction is done statistically using a seq2seq model (takes a sequence and outputs a sequence). This model has been edited to focus on the eye movement, which isn't specifically recorded in the skeleton pose.
+Note that we use a virtual environment (located `/home/andrewdepke/motionPrediction/.venv` on the Xavier NX device), which can be activated with `$ source .venv/bin/activate`. Then motion prediction can be run with `$ python3 src/continuous_prediction.py`.
