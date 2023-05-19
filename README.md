@@ -25,6 +25,12 @@ Note that the pose prediction code is our least-developed area, and for now we'r
 
 ![ClientSchedulingChoices2](https://user-images.githubusercontent.com/18013792/162126015-47daf6a4-ea71-48e1-a889-45762412814b.png)
 
+### Overview of control flow graph
+
+![Edge-cloud collaboration with profile timings](files/cfg_time.png)
+
+![CFG under different input rates](files/CFG.png)
+
 ## Installing
 
 *While the client software should be able to run on other unix-based platforms, we have only tested on Xavier NX.*
